@@ -1,31 +1,17 @@
-    name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages
 
-    on:
-      push:
-        branches:
-          - main # Or your desired branch for deployment (e.g., master, gh-pages)
+on:
+  push:
+    branches: [ main ] # or "master" if that's your default branch
 
-    jobs:
-      build-and-deploy:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v3
-
-          - name: Set up Node.js (if applicable)
-            uses: actions/setup-node@v3
-            with:
-              node-version: '18' # Adjust Node.js version as needed
-
-          - name: Install dependencies (if applicable)
-            run: npm install
-
-          - name: Build project (if applicable)
-            run: npm run build # Or your specific build command
-
-          - name: Deploy to GitHub Pages
-            uses: peaceiris/actions-gh-pages@v3
-            with:
-              github_token: ${{ secrets.GITHUB_TOKEN }}
-              publish_dir: ./build # Adjust to your build output directory (e.g., ./dist, ./public)
-              publish_branch: gh-pages # Target branch for GitHub Pages
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./  # Change this if your files are in a subdirectory
